@@ -1,0 +1,52 @@
+.source-code-holder {
+  margin-top: 20px;
+  opacity: 1;
+  animation-name: scrolldown;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 1s;
+}
+
+@keyframes scrolldown {
+  0% {
+    /* opacity: 0; */
+    margin-top: -100px;
+  }
+  100% {
+    /* opacity: 1; */
+    margin-top: 0px;
+  }
+}
+
+.source-code {
+  background-color: #2a222f;
+  color: darksalmon;
+  font-size: larger;
+}
+.git-card {
+  display: contents;
+}
+.git-card .ui.card > .content > .header {
+  color: #c1c3e1;
+  margin: 0;
+}
+
+.git-card .ui.card {
+  width: auto;
+  position: absolute;
+  background: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.show-card.git-card .ui.card {
+  /* background: #eee; */
+}
+
+.code-link-content {
+  margin-top: -0.6em;
+  opacity: 0;
+}
+
+.git-card:hover .code-link-content {
+  color: blue;
+}

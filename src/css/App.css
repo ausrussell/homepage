@@ -1,0 +1,226 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+.central-background {
+  position: fixed;
+  bottom: 0px;
+  height: 80%;
+  width: 100%;
+  background-image: url("../images/desk.JPG");
+  background-position: 0px 00px;
+  background-size: 100% 5000%;
+}
+
+.page-background {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  /* background-size: fit; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30%; /*50%*/
+  height: 100%;
+  width: 100%;
+  /* opacity: 0; */
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 2s;
+  /* display: none; */
+}
+
+.sheepme {
+  background-image: url("../images/sheepme.jpg");
+  /* background-color: ##cbcdd7; */
+}
+.queenme {
+  background-image: url("../images/queenme.jpg");
+  /* background-color: #b4967c; */
+}
+.obamame {
+  background-image: url("../images/obamame.jpg");
+  /* background-color: #e9d6bd; */
+}
+.pikame {
+  background-image: url("../images/pikame.jpg");
+  /* background-color: #8b8784; */
+}
+.warholme {
+  background-image: url("../images/warholme.jpg");
+  /* background-color: #fed2f7; */
+}
+.pumpkinme {
+  background-image: url("../images/pumpkinme.jpg");
+  /* background-color: #e8f9fd; */
+}
+
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 2s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.planeTop.receded .background,
+.planeBottom.receded .background,
+.planeLeft.receded,
+.planeRight.receded {
+  /* filter: blur(7px);
+  filter: hue-rotate(90deg); */
+  filter: brightness(0.75);
+}
+
+/* .page-holder,
+.page-holder > div {
+  width: 100%;
+  height: 1000px;
+} */
+.planeTop {
+  width: 100%;
+  height: 20%;
+}
+
+.planeTop .background {
+  content: "";
+  background-image: url("../images/waterlandscape.jpg");
+  background-color: #232353;
+  height: 20%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  filter: blur(2px);
+  -webkit-clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+}
+.planeBottom {
+  position: absolute;
+  top: 80%;
+}
+.planeBottom .background {
+  background-image: url("../images/desk.JPG");
+  background-position: 0px 00px;
+  background-size: 100%;
+  background-color: #232353;
+  /* height: 20%; */
+  height: 80%;
+  background-size: 100% 200%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+
+  -webkit-clip-path: polygon(
+    0% 100%,
+    22% 0%,
+    82% 0%,
+    89% 27%,
+    76% 42%,
+    80% 43%,
+    78% 52%,
+    89% 53%,
+    88% 58%,
+    92% 59%,
+    94% 69%,
+    92% 72%,
+    95% 74%,
+    98% 88%,
+    100% 100%
+  );
+  clip-path: polygon(
+    0% 100%,
+    22% 0%,
+    82% 0%,
+    89% 27%,
+    76% 42%,
+    80% 43%,
+    78% 52%,
+    89% 53%,
+    88% 58%,
+    92% 59%,
+    94% 69%,
+    92% 72%,
+    95% 74%,
+    98% 88%,
+    100% 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.planeLeft {
+  background-image: url("../images/domestic_interior_1.jpg");
+  background-color: #232353;
+  height: 100%;
+  width: 20%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  /* background: lime; /* Just to visualize the extent */
+  -webkit-clip-path: polygon(0 0, 100% 20%, 100% 80%, 0 100%);
+  clip-path: polygon(0 0, 100% 20%, 100% 80%, 0 100%);
+}
+
+.planeRight {
+  background-image: url("../images/domestic_interior_2.jpg");
+  background-color: #232353;
+  height: 100%;
+  width: 20%;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  -webkit-clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
+  clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
+}
+
+.dev {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  color: #aaa;
+}
+
+.sky-video-background {
+  /* display: none;*/
+  opacity: 0;
+}
+
+.video-holder {
+  /* -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%); */
+}

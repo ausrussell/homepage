@@ -1,0 +1,141 @@
+.pipe-video-container {
+  position: absolute;
+  top: -500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.periscope-pipe {
+  width: 40px;
+  height: 350px;
+  position: absolute;
+  background-color: #5f6c8d;
+}
+
+.periscope-cone {
+  position: absolute;
+  top: 335px;
+  height: 75px;
+  width: 500px;
+  background-color: #5f6c8d;
+  /* background: linear-gradient(75deg, #223243 10%, #dddee1 57%, #999); */
+  clip-path: polygon(50% 0, 50% 0, 100% 100%, 0% 100%);
+}
+.periscope-cone:after {
+  content: "Oakland Periscope";
+  postion: absolute;
+  left: 50%;
+  color: #aea156;
+}
+
+.periscope-rect {
+  width: 500px;
+  height: 20px;
+  position: absolute;
+  background-color: #5f6c8d;
+  top: 400px;
+  border: 4px solid #99aecc;
+  border-top: none;
+  border-radius: 5px;
+}
+
+.periscope-video-holder {
+  position: absolute;
+  top: 325px;
+  clip-path: ellipse(50% 20% at 50% 50%);
+  z-index: 1;
+  width: 500px;
+  height: 196px;
+  pointer-events: none;
+}
+
+.periscope-video-holder--full {
+  clip-path: ellipse(50% 37% at 50% 50%);
+}
+
+.periscope-iframe {
+  /* clip-path: ellipse(50% 20% at 50% 50%); */
+}
+
+.periscope-iframe--full {
+  /* .periscope-iframe { */
+  clip-path: polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%);
+}
+
+.periscope-background-card {
+  /* position: relative; */
+}
+
+.periscope-background-card .ui.card {
+  width: 700px;
+  height: 392px;
+  position: absolute;
+  bottom: 0px;
+  z-index: -1;
+}
+
+.work-thumb-container {
+  background-color: #282828;
+  width: 1000px;
+  height: 415px;
+  position: absolute;
+}
+
+.cardWrapper {
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 312px;
+  height: 191px;
+  float: left;
+}
+
+.cardFace {
+  width: 312px;
+  height: 191px;
+  position: absolute;
+  overflow: hidden;
+}
+
+.cardFace.front {
+  background: #ffffff;
+}
+.cardFace.back {
+  background: #91e600;
+}
+.periscope-title {
+  position: absolute;
+  width: 100%;
+  top: -20px;
+}
+.periscope-title path {
+  stroke: transparent;
+}
+.periscope-title text {
+  fill: #c1c3e1;
+  font-size: 20px;
+}
+
+.periscope-switch {
+  position: absolute;
+  bottom: 20px;
+  left: -2px;
+  width: 110%;
+  cursor: pointer;
+}
+
+.periscope-time {
+  position: absolute;
+  top: 174px;
+  fill: #fffeee;
+  font-size: 15px;
+  left: 0px;
+  width: 90%;
+  opacity: 0.75;
+}
+
+.periscope-time path {
+  stroke: transparent;
+}

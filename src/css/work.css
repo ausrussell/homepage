@@ -1,0 +1,53 @@
+.work-wrapper {
+  height: 100%;
+}
+
+.work-container {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+}
+.work-col1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 0;
+}
+
+.work-col2 {
+  flex: 2 0 0;
+  display: flex;
+  margin: 20px;
+}
+
+.work-col1 .ui.card:first-child {
+  margin-top: 1em;
+}
+
+.work-col2 .card {
+  /* width: auto; */
+}
+.play-holder {
+  float: right;
+  margin-top: 5px;
+}
+
+.card-1 {
+  /* transform-style: "preserve-3d";
+  transform: rotate(45deg);
+  opacity: 0.7; */
+}
+
+.school-iframe,
+.school-iframe iframe {
+  width: 100%;
+  height: calc(100% - 1em);
+}
+.school-iframe.video {
+  display: none;
+}
+
+.iframe-link {
+  float: right;
+}

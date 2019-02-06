@@ -1,0 +1,90 @@
+.panel-holder {
+  -webkit-perspective: 800px; /* Safari 4-8 */
+  perspective: 800px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+}
+
+.full-art-holder {
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  left: 50%;
+  margin-left: -30%;
+  top: 19%;
+  pointer-events: none;
+}
+
+.each-panel-holder {
+  position: absolute;
+  width: 15%;
+  height: 15%;
+}
+.each-panel-holder.receded {
+  /* z-index: -2; */
+}
+
+.each-panel-holder.panel1 {
+  background-position: 15% 20px;
+  top: 20%;
+  left: 15%;
+}
+
+.each-panel-holder.panel2 {
+  background-position: 15% 20px;
+  top: 40%;
+  left: 15%;
+}
+
+.each-panel-holder.panel3 {
+  background-position: 15% 20px;
+  top: 20%;
+  left: 40%;
+}
+
+.each-panel-holder.panel4 {
+  top: 40%;
+  left: 40%;
+}
+
+.panel {
+  background-image: url("../images/domestic_interior_2.jpg");
+  cursor: pointer;
+  transform-style: preserve-3d;
+  height: 100%;
+  width: 100%;
+  background-color: #456;
+  position: absolute;
+  top: 0px;
+  transform-origin: top center;
+  border: 3px inset #b8c6d0;
+}
+
+.panel.active {
+  /* display: none; */
+}
+
+.panel-art {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #23ff53;
+  z-index: -1;
+  border: 2px solid #666;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.panel-art .art-img {
+  width: 100%;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}

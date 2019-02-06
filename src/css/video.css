@@ -1,0 +1,62 @@
+.player-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.video-controls {
+  float: right;
+  width: 100%;
+  margin: 1vh;
+}
+
+.video-controls button {
+  float: right;
+}
+
+.video-container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  opacity: 0;
+}
+
+.video-container .ui.card {
+  display: flex;
+  flex: 1;
+  height: 45%;
+}
+
+.video-container .ui.card .content {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.video-holder {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.video-holder.iframe {
+  display: none;
+}
+
+.player-wrapper {
+  /* flex: 1; */
+}
+
+/**/
+.sky-video-background {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.sky-video-holder {
+  /* width: 60%; */
+  height: 60%;
+  width: 61%;
+}
