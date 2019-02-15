@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  TimelineMax,
-  CSSPlugin,
-  Sine,
-  TweenMax,
-  Elastic,
-  Bounce,
-  Back
-} from "gsap/TweenMax";
+import { TimelineMax, Sine, TweenMax, Back } from "gsap/TweenMax";
 
 class ArtPanel extends React.Component {
   state = {
@@ -33,7 +25,6 @@ class ArtPanel extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (this.props.holderActive && !prevProps.holderActive) {
-      console.log("start card tween");
       this.setBackgroundPosition();
       this.setState({ holderActive: true });
       this.animatePanelHolderOpen();
@@ -41,8 +32,8 @@ class ArtPanel extends React.Component {
       this.panelEdgeOpenAnimation.reverse();
       this.imageFlyoutAnimation.reverse();
     }
-    if (this.props.artActive != prevProps.artActive) {
-      if (this.props.id == this.props.artActive) {
+    if (this.props.artActive !== prevProps.artActive) {
+      if (this.props.id === this.props.artActive) {
         // this.props.hanldeArtClick(this.props.id);
         this.imageFlyoutAnimation.play();
       } else {
@@ -52,21 +43,12 @@ class ArtPanel extends React.Component {
   }
 
   getFullBackgroundPosition = () => {
-    // debugger;
-    console.log("this.state.windowWidth", this.state.windowWidth);
-    console.log("this.panelHolder", this.panelHolder.offsetLeft);
-    console.log(
-      "this.panelHolder parent ",
-      this.panelHolder.parentElement.offsetWidth
-    );
-
-    // let offsetLeftPercentage =
     let newLeft =
       this.state.windowWidth *
       0.8 *
       (this.panelHolder.offsetLeft /
         this.panelHolder.parentElement.offsetWidth); //only need to update left value20; //
-    return "-" + newLeft + "px " + "-" + this.panelHolder.offsetTop + "px";
+    return "-" + newLeft + "px -" + this.panelHolder.offsetTop + "px";
   };
 
   setUpAnimations() {
@@ -191,7 +173,6 @@ class ArtPanel extends React.Component {
     let imageHeight = event.currentTarget.naturalHeight;
     let imageWidth = event.currentTarget.naturalWidth;
     this.aspectRatio = imageWidth / imageHeight;
-    console.log("this.aspectRatio", this.aspectRatio);
   }
   handleArtClick(e) {
     this.props.hanldeArtClick(this.props.id);
@@ -223,17 +204,15 @@ class ArtPanel extends React.Component {
     let top = useLandscapeFormat
       ? topOff + (holderHeight - height) / 4 //by 4 just to make it higher
       : topOff;
-    console.log("coords", width, height, this.aspectRatio);
 
     return { width, height, left, top };
   };
   render() {
     let activityClass = "";
-    if (this.props.artActive != null) {
+    if (this.props.artActive !== null) {
       activityClass =
-        this.props.artActive != this.props.id ? "receded" : "active";
+        this.props.artActive !== this.props.id ? "receded" : "active";
     }
-
     return (
       <div
         key={this.props.id}
@@ -258,13 +237,14 @@ class ArtPanel extends React.Component {
           onMouseEnter={() => this.handleHolderEnter()}
         >
           <img
-            src={require("../images/" + `${this.props.image}` + ".jpg")}
+            src={require("../images/" + this.props.image + ".jpg")}
             className="art-img"
             onLoad={e => this.handleImageLoaded(e)}
             ref={div => {
               this.artImgRef = div;
             }}
             onClick={e => this.handleArtClick(e)}
+            alt={this.props.image}
           />
         </div>
       </div>

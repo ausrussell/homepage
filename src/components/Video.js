@@ -1,27 +1,13 @@
 import React, { Component } from "react";
 import ReactPlayer from "react-player";
-import Card from "./Card";
 import "../css/video.css";
-import {
-  TweenMax,
-  TweenLite,
-  Power2,
-  TimelineLite,
-  CSSPlugin
-} from "gsap/TweenMax";
 
 class Video extends Component {
   state = {
     url: null,
     pip: false,
     playing: false,
-    volume: 0.8,
-    muted: false,
-    played: 0,
-    loaded: 0,
     videoTitle: null,
-
-    playbackRate: 1.0,
     loop: true
   };
   load = url => {
@@ -58,19 +44,7 @@ class Video extends Component {
     this.player = player;
   };
   render() {
-    const {
-      url,
-      playing,
-      volume,
-      muted,
-      loop = true,
-      played,
-      loaded,
-
-      playbackRate,
-      pip
-    } = this.state;
-    const SEPARATOR = " · ";
+    const { url, playing, loop = true, pip } = this.state;
 
     return (
       <div

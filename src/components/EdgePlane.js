@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  TweenMax,
-  TweenLite,
-  Power2,
-  TimelineLite,
-  CSSPlugin,
-  TimelineMax
-} from "gsap/TweenMax";
+import { TweenLite, TimelineLite } from "gsap/TweenMax";
 
 class EdgePlane extends React.Component {
   constructor(props) {
@@ -67,6 +60,8 @@ class EdgePlane extends React.Component {
           break;
         case "planeLeft":
           this.animateLeft();
+          break;
+        default:
           break;
       }
     } else if (

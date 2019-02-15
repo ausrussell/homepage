@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import "../css/work.css";
-import {
-  TweenMax,
-  TweenLite,
-  Power2,
-  TimelineLite,
-  CSSPlugin
-} from "gsap/TweenMax";
+import { TweenLite, TimelineLite } from "gsap/TweenMax";
 import Card from "./Card";
 
 import Video from "./Video";
@@ -44,7 +38,7 @@ const Iframe = ({ source, cssClass }) => {
   return (
     // basic bootstrap classes. you can change with yours.
     <div className={`school-iframe ${cssClass}`}>
-      <iframe src={src} />
+      <iframe src={source} title="work sample" />
       <div className="iframe-link">
         <a target="school" href={src}>
           Open in new tab <i className="external alternate icon" />
@@ -54,7 +48,7 @@ const Iframe = ({ source, cssClass }) => {
   );
 };
 
-class Work extends React.Component {
+class Work extends Component {
   state = {
     approaching: null,
     url: null,
@@ -201,7 +195,7 @@ class Work extends React.Component {
               <Card>
                 <div className="header">Handbags</div>
                 Here's a video of the UI I made in Actionscript for a Build Your
-                Own Handbag web app a few years
+                Own Handbag web app a few years back
                 <div className="play-holder">
                   <button
                     onClick={e =>

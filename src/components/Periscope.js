@@ -1,16 +1,6 @@
 import React, { Component } from "react";
-import {
-  TweenMax,
-  TweenLite,
-  Power2,
-  TimelineLite,
-  CSSPlugin,
-  Back,
-  AttrPlugin
-} from "gsap/TweenMax";
+import { TweenLite, TimelineLite, Back } from "gsap/TweenMax";
 import "../css/periscope.css";
-import Card from "./Card";
-import Video from "./Video";
 
 class Periscope extends Component {
   state = {
@@ -24,19 +14,16 @@ class Periscope extends Component {
   };
 
   periscopeIframe = null;
-  myTween = null;
   pipeVideoContainer = null;
-  constructor() {
-    super();
-  }
+
   componentDidMount() {
     this.timerID = setInterval(() => this.updateTime(), 1000);
     TweenLite.set(this.pipeVideoContainer, { perspective: 800 });
     TweenLite.set(this.periscopeVideoCard, { autoAlpha: 0 });
     TweenLite.set(this.periscopeBackgroundCard, { autoAlpha: 0 });
-    // this.ifr.onload = () => {
-    this.iFrameLoadHandler();
-    // };
+    this.ifr.onload = () => {
+      this.iFrameLoadHandler();
+    };
   }
 
   updateTime() {
@@ -57,11 +44,8 @@ class Periscope extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // console.log("PERISCOPE this.props", prevProps, this.props);
-
     if (this.props.activePeriscope && !prevProps.activePeriscope) {
       console.log("activePeriscope", this.props.activePeriscope);
-
       this.showFull();
       this.growBackgroundToVideo();
     } else if (prevProps.activePeriscope && !this.props.activePeriscope) {
@@ -230,7 +214,6 @@ class Periscope extends Component {
                 d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
                 fill="transparent"
                 stroke="#000"
-                id="curve"
               />
 
               <text id="svg_text" textAnchor="middle" x={215}>

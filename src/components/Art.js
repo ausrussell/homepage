@@ -1,22 +1,9 @@
 import React, { Component } from "react";
 import ArtPanel from "./ArtPanel";
 
-import {
-  TweenMax,
-  TweenLite,
-  Power2,
-  TimelineLite,
-  TimelineMax,
-  CSSPlugin,
-  Back,
-  AttrPlugin,
-  Sine
-} from "gsap/TweenMax";
+import { TweenMax } from "gsap/TweenMax";
 import "../css/art.css";
-import Card from "./Card";
-import Video from "./Video";
 
-const panels = [{ id: "1b", class: "panel", panelAnimation: null }];
 const panelData = [
   {
     id: 0,
@@ -29,14 +16,12 @@ const panelData = [
   {
     id: 1,
     classCSS: "panel2",
-    flap: "flap", //this holds the ref to the flap
     image: "self",
     left: 0.15
   },
   {
     id: 2,
     classCSS: "panel3",
-    flap: "flap", //this holds the ref to the flap
     image: "mum_breakfast",
     left: 0.4
   },
@@ -161,7 +146,7 @@ class Art extends Component {
   getFullBackgroundPosition(index) {
     let parent = this.artFlapRef[index].offsetParent;
     let newLeft = this.state.width * 0.8 * panelData[index].left; //only need to update left value20; //
-    return "-" + newLeft + "px " + "-" + parent.offsetTop + "px";
+    return "-" + newLeft + "px -" + parent.offsetTop + "px";
   }
 
   handleArtClick = artID => {
