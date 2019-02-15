@@ -139,7 +139,7 @@ code {
   bottom: 0px;
   height: 80%;
   width: 100%;
-  background-image: url("./images/desk.jpg");
+  background-image: url("../images/desk.jpg");
   background-position: 0px 00px;
   background-size: 100% 5000%;
 }
@@ -165,27 +165,27 @@ code {
 }
 
 .sheepme {
-  background-image: url("./images/sheepme.jpg");
+  background-image: url("../images/sheepme.jpg");
   /* background-color: ##cbcdd7; */
 }
 .queenme {
-  background-image: url("./images/queenme.jpg");
+  background-image: url("../images/queenme.jpg");
   /* background-color: #b4967c; */
 }
 .obamame {
-  background-image: url("./images/obamame.jpg");
+  background-image: url("../images/obamame.jpg");
   /* background-color: #e9d6bd; */
 }
 .pikame {
-  background-image: url("./images/pikame.jpg");
+  background-image: url("../images/pikame.jpg");
   /* background-color: #8b8784; */
 }
 .warholme {
-  background-image: url("./images/warholme.jpg");
+  background-image: url("../images/warholme.jpg");
   /* background-color: #fed2f7; */
 }
 .pumpkinme {
-  background-image: url("./images/pumpkinme.jpg");
+  background-image: url("../images/pumpkinme.jpg");
   /* background-color: #e8f9fd; */
 }
 
@@ -227,7 +227,7 @@ code {
 
 .planeTop .background {
   content: "";
-  background-image: url("./images/waterlandscape.jpg");
+  background-image: url("../images/waterlandscape.jpg");
   background-color: #b1c1dd;
   height: 20%;
 
@@ -246,7 +246,7 @@ code {
   top: 80%;
 }
 .planeBottom .background {
-  background-image: url("./images/desk.jpg");
+  background-image: url("../images/desk.jpg");
   background-position: 0px 00px;
   background-size: 100%;
   background-color: #a5852b;
@@ -299,7 +299,7 @@ code {
 }
 
 .planeLeft {
-  background-image: url("./images/domestic_interior_1.jpg");
+  background-image: url("../images/domestic_interior_1.jpg");
   background-color: #f3f3d3;
   height: 100%;
   width: 20%;
@@ -317,7 +317,7 @@ code {
 
 .planeRight {
   background-color: #f1e9b9;
-  background-image: url("./images/domestic_interior_2.jpg");
+  background-image: url("../images/domestic_interior_2.jpg");
   height: 100%;
   width: 20%;
   position: fixed;

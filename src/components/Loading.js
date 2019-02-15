@@ -1,5 +1,11 @@
 import React from "react";
-import { panelBackgrounds } from "./image-data";
+
+const panelBackgrounds = [
+  "desk",
+  "waterlandscape",
+  "domestic_interior_1",
+  "domestic_interior_2"
+];
 
 const Loading = props => {
   let arrayHolder = panelBackgrounds;
