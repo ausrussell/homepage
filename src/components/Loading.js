@@ -12,7 +12,7 @@ const Loading = props => {
   const imageLoadedHandler = panel => {
     let index = arrayHolder.indexOf(panel);
     arrayHolder.splice(index, 1);
-    arrayHolder.length === 0 && props.onImagesLoaded();
+    // arrayHolder.length === 0 && props.onImagesLoaded();
   };
 
   return (

@@ -139,7 +139,7 @@ code {
   bottom: 0px;
   height: 80%;
   width: 100%;
-  background-image: url("../images/desk.jpg");
+  /* background-image: url("../images/desk.jpg"); */
   background-position: 0px 00px;
   background-size: 100% 5000%;
 }
