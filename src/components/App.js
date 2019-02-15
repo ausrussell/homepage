@@ -6,7 +6,6 @@ import Desk from "./Desk";
 import Work from "./Work";
 import Art from "./Art";
 import { TweenMax, TimelineLite } from "gsap/TweenMax";
-import "../css/App.css";
 
 import videos from "../videos/dawn.mov";
 import { backgrounds } from "./image-data";
