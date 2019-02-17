@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import Loading from "./Loading";
+import Loading from "./Loading";
 import EdgePlane from "./EdgePlane";
 import Periscope from "./Periscope";
 import Desk from "./Desk";
@@ -26,7 +26,7 @@ class App extends Component {
     videoTitle: null,
     heightDelta: null,
     recedeOverride: false,
-    imagesLoaded: true
+    imagesLoaded: false
   };
 
   skyVideoBackground;
@@ -251,7 +251,7 @@ class App extends Component {
             </div>
           </div>
         ) : (
-          <div>loading</div>
+          <Loading onImagesLoaded={() => this.imagesLoadedHandler()} />
         )}
       </div>
     );

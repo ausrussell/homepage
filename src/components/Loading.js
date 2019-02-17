@@ -12,8 +12,16 @@ const Loading = props => {
   const imageLoadedHandler = panel => {
     let index = arrayHolder.indexOf(panel);
     arrayHolder.splice(index, 1);
+    console.log("splice", panel);
     arrayHolder.length === 0 && props.onImagesLoaded();
   };
+
+  panelBackgrounds.map((panel, index) => {
+    console.log("panelBackgrounds", panel);
+    let image = new Image();
+    image.onload = () => imageLoadedHandler(panel);
+    image.src = "../images/" + panel + ".jpg";
+  });
 
   return (
     <div className="page-holder loading">
@@ -23,16 +31,6 @@ const Loading = props => {
       <div className="progress">
         <div className="indeterminate" />
       </div>
-      {// map through the backgrounds
-      panelBackgrounds.map((panel, index) => (
-        <img
-          key={"image-" + index}
-          src={require("../images/" + panel + ".jpg")}
-          className="image-loader-holder"
-          onLoad={e => imageLoadedHandler(panel)}
-          alt={panel}
-        />
-      ))}
     </div>
   );
 };
