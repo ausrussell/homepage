@@ -1,10 +1,10 @@
 import React from "react";
 
 const panelBackgrounds = [
-  "desk",
-  "waterlandscape",
-  "domestic_interior_1",
-  "domestic_interior_2"
+  "../images/desk.jpg",
+  "../images/waterlandscape.jpg",
+  "../images/domestic_interior_1.jpg",
+  "../images/domestic_interior_2.jpg"
 ];
 
 const Loading = props => {
@@ -20,7 +20,7 @@ const Loading = props => {
     console.log("panelBackgrounds", panel);
     let image = new Image();
     image.onload = () => imageLoadedHandler(panel);
-    image.src = "../images/" + panel + ".jpg";
+    image.src = panel;
   });
 
   return (

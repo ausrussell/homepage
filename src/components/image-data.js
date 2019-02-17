@@ -8,8 +8,8 @@ export const backgrounds = [
 ];
 
 export const panelBackgrounds = [
-  "desk",
-  "waterlandscape",
-  "domestic_interior_1",
-  "domestic_interior_2"
+  "../images/desk.jpg",
+  "../images/waterlandscape.jpg",
+  "../images/domestic_interior_1.jpg",
+  "../images/domestic_interior_2.jpg"
 ];

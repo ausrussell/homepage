@@ -157,6 +157,9 @@ class App extends Component {
 
   render() {
     const imagesLoaded = this.state.imagesLoaded;
+    var loadingIndicator = <div>Loading...</div>;
+    var images = [];
+
     return (
       <div>
         {imagesLoaded ? (
