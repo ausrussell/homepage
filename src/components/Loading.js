@@ -96,9 +96,9 @@ const Loading = props => {
 
   panelBackgrounds.map((panel, index) => {
     console.log("panelBackgrounds", panel);
-    let image = new Image();
-    image.onload = () => imageLoadedHandler(panel);
-    image.src = panel;
+    // let image = new Image();
+    // image.onload = () => imageLoadedHandler(panel);
+    // image.src = panel;
   });
 
   return (
