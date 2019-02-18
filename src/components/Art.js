@@ -3,6 +3,7 @@ import ArtPanel from "./ArtPanel";
 
 import { TweenMax } from "gsap/TweenMax";
 import "../css/art.css";
+import "../css/app.css";
 
 const panelData = [
   {
