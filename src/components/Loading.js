@@ -1,7 +1,7 @@
 import React from "react";
 
 const panelBackgrounds = [
-  // "../images/desk.jpg",
+  // "../images/desk_center.jpg",
   "../images/waterlandscape.jpg",
   "../images/domestic_interior_1.jpg",
   "../images/domestic_interior_2.jpg"
