@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TweenLite, TimelineLite, Back } from "gsap/TweenMax";
+import { TweenMax, TimelineMax, Back } from "gsap/TweenMax";
 import "../css/periscope.css";
 
 class Periscope extends Component {
@@ -13,19 +13,114 @@ class Periscope extends Component {
     time: null
   };
 
-  periscopeIframe = null;
-  pipeVideoContainer = null;
-
   componentDidMount() {
     this.timerID = setInterval(() => this.updateTime(), 1000);
-    TweenLite.set(this.pipeVideoContainer, { perspective: 800 });
-    TweenLite.set(this.periscopeVideoCard, { autoAlpha: 0 });
-    TweenLite.set(this.periscopeBackgroundCard, { autoAlpha: 0 });
+    this.initAnimationSetup();
+    this.setupAnimations();
+
     this.ifr.onload = () => {
       this.iFrameLoadHandler();
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.activePeriscope && !prevProps.activePeriscope) {
+      console.log("activePeriscope", this.props.activePeriscope);
+      this.setupAnimations();
+      this.showFullTween.play();
+      this.animationBackgroundTimeline.play();
+    } else if (prevProps.activePeriscope && !this.props.activePeriscope) {
+      if (this.dropPeriscopeTween.progress() > 0) {
+        this.dropPeriscopeTween.reverse();
+      }
+      if (this.animationBackgroundTimeline.progress() > 0) {
+        this.animationBackgroundTimeline.reverse();
+      }
+      if (this.showFullTween.progress() > 0) {
+        this.showFullTween.reverse();
+      }
+    }
+  }
+
+  initAnimationSetup() {
+    TweenMax.set(this.pipeVideoContainer, { perspective: 800 });
+    TweenMax.set(this.periscopeVideoCard, { autoAlpha: 0 });
+    TweenMax.set(this.periscopeBackgroundCard, { autoAlpha: 0 });
+  }
+
+  setupAnimations() {
+    this.animationBackgroundTimeline = new TimelineMax();
+    this.animationBackgroundTimeline.to(this.background, 1, {
+      height: () => this.getNewHeight()
+    });
+    this.animationBackgroundTimeline.pause();
+
+    this.showFullTween = new TimelineMax();
+    this.showFullTween.to(this.pipeVideoContainer, 1, {
+      y: 300,
+      ease: Back.easeInOut
+    });
+    this.showFullTween.pause();
+
+    this.dropPeriscopeTween = new TimelineMax();
+    this.dropPeriscopeTween
+      .to(this.switchCircle, 1.5, {
+        attr: { cy: 68 },
+        ease: Back.easeInOut
+      })
+      .to(
+        this.pipeVideoHolder,
+        1,
+        {
+          className: "+=periscope-video-holder--full",
+          y: 50
+        },
+        "-=1"
+      )
+
+      .to(
+        this.pipeVideoHolder,
+        1,
+        {
+          rotationX: -0,
+          transformOrigin: "left 95px",
+          transformStyle: "preserve-3d",
+          ease: Back.easeInOut,
+          width: "40%"
+        },
+        "-=1"
+      )
+      .to(
+        this.periscopeCone,
+        1,
+        {
+          width: "600px"
+          // height: "200px"
+        },
+        "-=1"
+      )
+      .to(
+        this.periscopeRect,
+        1,
+        {
+          width: "600px",
+          height: "140px"
+        },
+        "-=1"
+      )
+      .to(this.pipeVideoHolder, 1, {
+        rotationX: -360,
+        transformOrigin: "left 95px",
+        transformStyle: "preserve-3d",
+        ease: Back.easeInOut,
+        height: this.pipeVideoHolder.offsetWidth / 1.5
+      });
+    this.dropPeriscopeTween.pause();
+  }
+  getNewHeight = () => {
+    console.log("grow peri bg", this.props.heightDelta);
+    return window.innerHeight / 5 + this.props.heightDelta; //this.deskBackground.offsetHeight
+  };
   updateTime() {
     let time = new Date();
     let h = time.getHours();
@@ -42,33 +137,10 @@ class Periscope extends Component {
         (h < 12 ? "am" : "pm")
     });
   }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.activePeriscope && !prevProps.activePeriscope) {
-      console.log("activePeriscope", this.props.activePeriscope);
-      this.showFull();
-      this.growBackgroundToVideo();
-    } else if (prevProps.activePeriscope && !this.props.activePeriscope) {
-      if (this.dropPeriscopeTween) {
-        this.dropPeriscopeTween.reverse();
-      }
-      this.animationTimeline.reverse();
-      this.showFullTween.reverse();
-    }
-  }
-
-  growBackgroundToVideo() {
-    let newHeight = window.innerHeight / 5 + this.props.heightDelta; //this.deskBackground.offsetHeight
-    if (!this.animationTimeline) {
-      this.animationTimeline = new TimelineLite();
-      this.animationTimeline.to(this.background, 1, { height: newHeight });
-    } else {
-      this.animationTimeline.play();
-    }
-  }
+  growBackgroundToVideo() {}
 
   iFrameLoadHandler() {
-    this.myTween = new TimelineLite();
+    this.myTween = new TimelineMax();
     this.myTween
       .set(this.pipeVideoHolder, {
         transformStyle: "preserve-3d",
@@ -79,92 +151,16 @@ class Periscope extends Component {
         delay: 2
       });
   }
-  showFull() {
-    if (!this.state.url) {
-      this.setState({
-        url: "https://youtu.be/NV8Vy9kc42U", //: "./videos/dawn.mp4",
-        playing: true,
-        videoTitle: "dawns"
-      });
-    }
-
-    if (!this.showFullTween) {
-      this.showFullTween = new TimelineLite();
-      this.showFullTween.to(this.pipeVideoContainer, 1, {
-        y: 300,
-        ease: Back.easeInOut
-      });
-    } else {
-      this.showFullTween.play();
-    }
-  }
 
   handleSwitchClick() {
-    if (this.dropPeriscopeTween) {
+    if (this.dropPeriscopeTween.progress() > 0) {
       this.dropPeriscopeTween.reverse();
-      this.dropPeriscopeTween = null;
     } else {
       this.dropPeriscope();
     }
   }
   dropPeriscope() {
-    if (!this.dropPeriscopeTween) {
-      this.dropPeriscopeTween = new TimelineLite();
-      this.dropPeriscopeTween
-        .to(this.switchCircle, 1.5, {
-          attr: { cy: 68 },
-          ease: Back.easeInOut
-        })
-        .to(
-          this.pipeVideoHolder,
-          1,
-          {
-            className: "+=periscope-video-holder--full",
-            y: 50
-          },
-          "-=1"
-        )
-
-        .to(
-          this.pipeVideoHolder,
-          1,
-          {
-            rotationX: -0,
-            transformOrigin: "left 95px",
-            transformStyle: "preserve-3d",
-            ease: Back.easeInOut,
-            width: "40%"
-          },
-          "-=1"
-        )
-        .to(
-          this.periscopeCone,
-          1,
-          {
-            width: "600px"
-            // height: "200px"
-          },
-          "-=1"
-        )
-        .to(
-          this.periscopeRect,
-          1,
-          {
-            width: "600px",
-            height: "140px"
-          },
-          "-=1"
-        )
-        .to(this.pipeVideoHolder, 1, {
-          rotationX: -360,
-          transformOrigin: "left 95px",
-          transformStyle: "preserve-3d",
-          ease: Back.easeInOut,
-          height: this.pipeVideoHolder.offsetWidth / 1.5
-        });
-    } else {
-      this.dropPeriscope.play();
-    }
+    this.dropPeriscopeTween.play();
   }
   render() {
     return (

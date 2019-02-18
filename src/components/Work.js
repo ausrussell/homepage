@@ -66,13 +66,19 @@ class Work extends Component {
     this.setUpAnimations();
   }
 
+  getCardAngle = () => {
+    console.log("this.props.sideAngle", this.props.sideAngle);
+    return this.props.sideAngle; //77; //
+  };
+
   setUpAnimations() {
     TweenLite.set(this.col1, { perspective: 800 });
     this.initialCardsState = new TimelineLite();
     this.initialCardsState.to(this.cards, 0.5, {
       transformStyle: "preserve-3d",
-      rotationY: 45,
-      autoAlpha: 0.7
+      rotationY: () => this.getCardAngle(),
+      autoAlpha: 0.7,
+      transformOrigin: "left top"
     });
     // fades in work area
     this.showWorkAnimation = new TimelineLite();
@@ -82,8 +88,8 @@ class Work extends Component {
     this.cardsAnimation = new TimelineLite();
     this.cardsAnimation.to(this.cards, 3, {
       rotationY: 0,
-      autoAlpha: 1,
-      transform: "translate3d(0,0,0)"
+      autoAlpha: 1
+      // transform: "translate3d(0,0,0)"
     });
     this.cardsAnimation.pause();
   }

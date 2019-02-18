@@ -24,35 +24,28 @@ class App extends Component {
     playing: null,
     videoTitle: null,
     heightDelta: null,
-    recedeOverride: false,
-    imagesLoaded: false
+    imagesLoaded: false,
+    sideAngle: 0
   };
 
-  skyVideoBackground;
   constructor(props) {
     super(props);
     this.backgroundElements = [];
-    this.boundHandleMouseLeave = evt => this.handleMouseLeave;
-    this.boundHandleMouseEnter = evt => this.handleMouseEnter;
     this.backgroundIndex = 0;
   }
 
-  componentDidMount() {
-    if (this.state.imagesLoaded) {
-      debugger;
-    }
-  }
-  componentDidUpdate(prevProps) {
-    if (!prevProps.imagesLoaded && this.props.imagesLoaded) {
-    }
-  }
+  // componentDidMount() {
+  //   if (this.state.imagesLoaded) {
+  //     debugger;
+  //   }
+  // }
+  // componentDidUpdate(prevProps) {
+  //   if (!prevProps.imagesLoaded && this.props.imagesLoaded) {
+  //   }
+  // }
   imagesLoadedHandler = () => {
-    // debugger;
     this.setState({ imagesLoaded: true });
-    // this.changeBackground();
-
     this.interval = setInterval(() => this.changeBackground(), 5000);
-    // this.setupAnimations();
     this.setHeightDelta();
     window.addEventListener("resize", () => this.handleResize());
   };
@@ -83,11 +76,14 @@ class App extends Component {
     });
     this.backgroundIndex++;
   }
+
   handleMouseEnter = plane => {
     console.log("handleMouseEnter", plane);
-    if (this.state.activePeriscope && this.topPlane === plane) {
-      return;
-    }
+    // if (this.state.activePeriscope && this.topPlane === plane) {
+    //   // no
+    //   debugger;
+    //   return;
+    // }
 
     this.setState(
       {
@@ -100,6 +96,7 @@ class App extends Component {
 
   handleMouseLeave = e => {
     if (this.state.activePeriscope) {
+      //allow watching of video and periscope if you mouse off browser
       return;
     }
     this.setState({ activePlane: null, activePeriscope: null }, () =>
@@ -112,7 +109,6 @@ class App extends Component {
     if (this.state.activePlane && this.state.activePeriscope) {
       // active  periscope so show video and hidebg
       console.log(">>play sky vid");
-      this.setState({ recedeOverride: true });
       TweenMax.to(this.skyVideoBackground, 2, { autoAlpha: 1 });
       TweenMax.to(this.backgroundElements, 2, { autoAlpha: 0 });
       // this.crossFadeBackgroundsToVideo.play();
@@ -122,12 +118,10 @@ class App extends Component {
       // an active plane not periscope so hide bg
       console.log(">>hide bg");
       clearInterval(this.interval);
-      this.setState({ heightDelta: null });
       this.hideBackgrounds();
       this.skyVideo.pause();
     } else {
       //no active plane
-
       this.interval = setInterval(() => this.changeBackground(), 5000);
     }
   }
@@ -137,11 +131,11 @@ class App extends Component {
     TweenMax.to(this.backgroundElements, 2, { autoAlpha: 0 });
   }
 
-  playVideo = thisApp => {
-    console.log("start playing");
-    this.skyVideo.pause();
-    this.skyVideo.play();
-  };
+  // playVideo = thisApp => {
+  //   console.log("start playing");
+  //   this.skyVideo.pause();
+  //   this.skyVideo.play();
+  // };
 
   handleResize(e) {
     this.setHeightDelta();
@@ -149,6 +143,18 @@ class App extends Component {
   setHeightDelta() {
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
+    // Calculate angle of cards
+    let sideAngle =
+      (Math.asin((0.2 * windowWidth) / (0.2 * windowHeight)) * 180) / Math.PI;
+    let hypo = Math.hypot(0.2 * windowWidth, 0.2 * windowHeight);
+    let cos = (Math.acos((0.2 * windowWidth) / hypo) * 180) / Math.PI;
+    let newHypo = Math.hypot(hypo, 0.2 * windowWidth);
+    let newX = Math.sqrt(
+      newHypo * newHypo + 0.2 * windowHeight * (0.2 * windowHeight)
+    );
+    let sin = (Math.asin((0.2 * windowWidth) / newX) * 180) / Math.PI;
+    console.log("sin", sin);
+    this.setState({ sideAngle: 90 - sin });
     let topBottomheightDelta =
       (0.6 * windowHeight - 0.5625 * 0.6 * windowWidth) / 2; //the amount the top and bottom backgrounds need to change when sky video plays
     this.setState({ heightDelta: topBottomheightDelta });
@@ -156,8 +162,6 @@ class App extends Component {
 
   render() {
     const imagesLoaded = this.state.imagesLoaded;
-    var loadingIndicator = <div>Loading...</div>;
-    var images = [];
 
     return (
       <div>
@@ -198,7 +202,6 @@ class App extends Component {
                   planeclass="planeTop"
                   activePlane={this.state.activePlane}
                   ref={p => (this.topPlane = p)}
-                  activePeriscope={this.state.activePlane === this.topPlane}
                 >
                   <Periscope
                     activePeriscope={this.state.activePlane === this.topPlane}
@@ -213,7 +216,6 @@ class App extends Component {
                 <EdgePlane
                   planeclass="planeBottom"
                   activePlane={this.state.activePlane}
-                  activePeriscope={this.state.activePlane === this.topPlane}
                   ref={p => (this.bottomPlane = p)}
                   recedeOverride={this.state.activePeriscope}
                 >
@@ -231,12 +233,12 @@ class App extends Component {
                 <EdgePlane
                   planeclass="planeLeft"
                   activePlane={this.state.activePlane}
-                  activePeriscope={this.state.activePlane === this.topPlane}
                   ref={p => (this.leftPlane = p)}
                   controlAnimation={true}
                 >
                   <Work
                     activeWork={this.state.activePlane === this.leftPlane}
+                    sideAngle={this.state.sideAngle}
                   />
                 </EdgePlane>
               </div>

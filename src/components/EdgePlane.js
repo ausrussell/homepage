@@ -10,7 +10,6 @@ class EdgePlane extends React.Component {
       y: 0,
       isAnimating: null,
       isReceded: false,
-      activePeriscope: null,
       recedeOverride: false,
       controlAnimation: null
       // animationTimeline = null
@@ -18,36 +17,7 @@ class EdgePlane extends React.Component {
     this.animationTimeline = null;
   }
 
-  setupTimelines() {}
-
-  updateBgt() {
-    this.plane
-      .css(
-        "-webkit-filter",
-        "brightness(" +
-          Math.floor(this.brightnessObj.brightness * 1000) / 1000 +
-          ")"
-      )
-      .css(
-        "filter",
-        "brightness(" +
-          Math.floor(this.brightnessObj.brightness * 1000) / 1000 +
-          ")"
-      );
-  }
-  componentDidMount() {
-    // this.props.setAnimatePlane(this.animatePlane);
-  }
-
   componentDidUpdate(prevProps) {
-    console.log(
-      "Edgeplane componentDidUpdate this.props",
-      this.props,
-      "active plane is",
-      this.props.activePlane,
-      "state",
-      this.state
-    );
     if (
       this.props.activePlane &&
       this.props.activePlane === this &&
@@ -69,7 +39,6 @@ class EdgePlane extends React.Component {
       this.state.isAnimating &&
       this.props.controlAnimation
     ) {
-      console.log("starting reverse for ", this);
       this.reverseAnimation();
     } else {
       // debugger;
