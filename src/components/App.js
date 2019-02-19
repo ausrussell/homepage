@@ -47,11 +47,12 @@ class App extends Component {
     this.setState({ imagesLoaded: true });
     this.interval = setInterval(() => this.changeBackground(), 5000);
     this.setHeightDelta();
-    window.addEventListener("resize", () => this.handleResize());
+    window.addEventListener("resize", this.handleResize.bind(this));
   };
 
   componentWillUnmount() {
     clearInterval(this.interval);
+    window.removeEventListener("resize", this.handleResize.bind(this));
   }
 
   setupAnimations() {
@@ -79,12 +80,6 @@ class App extends Component {
 
   handleMouseEnter = plane => {
     console.log("handleMouseEnter", plane);
-    // if (this.state.activePeriscope && this.topPlane === plane) {
-    //   // no
-    //   debugger;
-    //   return;
-    // }
-
     this.setState(
       {
         activePlane: plane,
@@ -131,13 +126,8 @@ class App extends Component {
     TweenMax.to(this.backgroundElements, 2, { autoAlpha: 0 });
   }
 
-  // playVideo = thisApp => {
-  //   console.log("start playing");
-  //   this.skyVideo.pause();
-  //   this.skyVideo.play();
-  // };
-
   handleResize(e) {
+    console.log("handleResize");
     this.setHeightDelta();
   }
   setHeightDelta() {

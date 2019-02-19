@@ -107,7 +107,7 @@ class Art extends Component {
   componentDidMount() {
     // return;
     this.updateWindowDimensions();
-    window.addEventListener("resize", () => this.updateWindowDimensions());
+    window.addEventListener("resize", this.updateWindowDimensions.bind(this));
     TweenMax.to(this.artTitle, 0, {
       rotationY: -45,
       autoAlpha: 0.7
@@ -131,7 +131,10 @@ class Art extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", () => this.updateWindowDimensions());
+    window.removeEventListener(
+      "resize",
+      this.updateWindowDimensions.bind(this)
+    );
   }
 
   handleImageLoaded(event) {
@@ -140,9 +143,9 @@ class Art extends Component {
     event.currentTarget.proportion = imageWidth / imageHeight;
   }
 
-  updateWindowDimensions() {
+  updateWindowDimensions = () => {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
-  }
+  };
 
   getFullBackgroundPosition(index) {
     let parent = this.artFlapRef[index].offsetParent;
@@ -151,7 +154,6 @@ class Art extends Component {
   }
 
   handleArtClick = artID => {
-    // debugger;
     this.setState({ artActive: artID });
   };
 
