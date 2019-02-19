@@ -1,6 +1,6 @@
 .pipe-video-container {
   position: absolute;
-  top: -500px;
+  top: -300px; /*5*/
   width: 100%;
   display: flex;
   justify-content: center;
@@ -48,6 +48,7 @@
   width: 500px;
   height: 196px;
   pointer-events: none;
+  transform: rotateX(45); /* was handled on load */
 }
 
 .periscope-video-holder--full {

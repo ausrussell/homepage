@@ -8,13 +8,13 @@ class Desk extends Component {
     activePeriscope: null,
     heightDelta: null
   };
-  sourceCode = null;
 
   componentDidMount() {
     var doctext = document.getElementsByTagName("html")[0].innerHTML;
     this.sourceCode.textContent = doctext;
     this.setupAnimations();
   }
+
   componentDidUpdate(prevProps) {
     if (!prevProps.activePeriscope && this.props.activePeriscope) {
       this.growToVideo();

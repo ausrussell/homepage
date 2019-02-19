@@ -7,6 +7,7 @@ class Periscope extends Component {
     activePeriscope: null,
     ifrWidth: "100%",
     ifrHeight: "100%",
+    iframeLoaded: false,
     url: null,
     playing: null,
     videoTitle: null,
@@ -17,10 +18,10 @@ class Periscope extends Component {
     this.timerID = setInterval(() => this.updateTime(), 1000);
     this.initAnimationSetup();
     this.setupAnimations();
+  }
 
-    this.ifr.onload = () => {
-      this.iFrameLoadHandler();
-    };
+  componentWillUnmount() {
+    clearTimeout(this.timerId);
   }
 
   componentDidUpdate(prevProps) {
@@ -54,10 +55,9 @@ class Periscope extends Component {
       height: () => this.getNewHeight()
     });
     this.animationBackgroundTimeline.pause();
-
     this.showFullTween = new TimelineMax();
     this.showFullTween.to(this.pipeVideoContainer, 1, {
-      y: 300,
+      y: 100, //was 300
       ease: Back.easeInOut
     });
     this.showFullTween.pause();
@@ -77,7 +77,6 @@ class Periscope extends Component {
         },
         "-=1"
       )
-
       .to(
         this.pipeVideoHolder,
         1,
@@ -117,16 +116,18 @@ class Periscope extends Component {
       });
     this.dropPeriscopeTween.pause();
   }
+
   getNewHeight = () => {
     console.log("grow peri bg", this.props.heightDelta);
     return window.innerHeight / 5 + this.props.heightDelta; //this.deskBackground.offsetHeight
   };
+
   updateTime() {
     let time = new Date();
     let h = time.getHours();
     let m = time.getMinutes();
     let s = time.getSeconds();
-    // console.log("update time");
+    // console.log("update time", s);
     this.setState({
       time:
         (h % 12) +
@@ -137,31 +138,30 @@ class Periscope extends Component {
         (h < 12 ? "am" : "pm")
     });
   }
-  growBackgroundToVideo() {}
-
-  iFrameLoadHandler() {
-    this.myTween = new TimelineMax();
-    this.myTween
-      .set(this.pipeVideoHolder, {
-        transformStyle: "preserve-3d",
-        rotationX: 45
-      })
-      .to(this.pipeVideoContainer, 1, {
-        y: 200,
-        delay: 2
-      });
-  }
 
   handleSwitchClick() {
     if (this.dropPeriscopeTween.progress() > 0) {
       this.dropPeriscopeTween.reverse();
     } else {
-      this.dropPeriscope();
+      this.dropPeriscopeTween.play();
     }
   }
-  dropPeriscope() {
-    this.dropPeriscopeTween.play();
+
+  iFrameLoadHandler() {
+    //lowers down the persicope into the viewport
+    // this.myTween = new TimelineMax();
+    // this.myTween
+    //   .set(this.pipeVideoHolder, {
+    //     transformStyle: "preserve-3d",
+    //     rotationX: 45
+    //   })
+    //   .to(this.pipeVideoContainer, 1, {
+    //     y: 200,
+    //     delay: 2
+    //   });
+    // this.setState({ iframeLoaded: true });
   }
+
   render() {
     return (
       <div>
@@ -240,6 +240,7 @@ class Periscope extends Component {
               width={this.state.ifrWidth}
               height={this.state.ifrHeight}
               src="//video.nest.com/embedded/live/HwulsRjzQE?autoplay=1"
+              onLoad={e => this.iFrameLoadHandler()}
             />
 
             <svg viewBox="0 0 500 300" className="periscope-time">
@@ -269,8 +270,5 @@ class Periscope extends Component {
     );
   }
 }
-
-//width="480"
-//height="394"
 
 export default Periscope;

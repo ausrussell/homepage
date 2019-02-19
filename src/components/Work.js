@@ -66,9 +66,19 @@ class Work extends Component {
     this.setUpAnimations();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.activeWork && !prevProps.activeWork) {
+      console.log("start card tween");
+      this.cardsAnimation.play();
+    } else if (!this.props.activeWork && prevProps.activeWork) {
+      this.cardsAnimation.reverse();
+      this.showWorkAnimation.reverse();
+      this.setState({ url: null, iframeSrc: null });
+    }
+  }
+
   getCardAngle = () => {
-    console.log("this.props.sideAngle", this.props.sideAngle);
-    return this.props.sideAngle; //77; //
+    return this.props.sideAngle;
   };
 
   setUpAnimations() {
@@ -92,19 +102,6 @@ class Work extends Component {
       // transform: "translate3d(0,0,0)"
     });
     this.cardsAnimation.pause();
-  }
-
-  componentDidUpdate(prevProps) {
-    console.log("WORK this.props", prevProps, this.props, this.state);
-
-    if (this.props.activeWork && !prevProps.activeWork) {
-      console.log("start card tween");
-      this.cardsAnimation.play();
-    } else if (!this.props.activeWork && prevProps.activeWork) {
-      this.cardsAnimation.reverse();
-      this.showWorkAnimation.reverse();
-      this.setState({ url: null, iframeSrc: null });
-    }
   }
 
   handleClick(url, videoTitle) {
