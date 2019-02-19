@@ -16,7 +16,7 @@ const Loading = props => {
     arrayHolder.length === 0 && props.onImagesLoaded();
   };
 
-  panelBackgrounds.map((panel, index) => {
+  panelBackgrounds.forEach((panel, index) => {
     console.log("panelBackgrounds", panel);
     let image = new Image();
     image.onload = () => imageLoadedHandler(panel);

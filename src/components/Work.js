@@ -186,7 +186,7 @@ class Work extends Component {
                   <LinkItem
                     link="https://capousd-ca.schoolloop.com"
                     alt="Capistrano USD logo"
-                    imgSRC="http://www.goboinfo.com/Logo-Repository/capistrano_usd_500.png"
+                    imgSRC="https://www.goboinfo.com/Logo-Repository/capistrano_usd_500.png"
                     header="Capistrano"
                     subheader="Unified School District"
                     handleSchoolClick={this.handleSchoolClick}

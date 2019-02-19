@@ -134,10 +134,7 @@ class App extends Component {
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
     // Calculate angle of cards
-    let sideAngle =
-      (Math.asin((0.2 * windowWidth) / (0.2 * windowHeight)) * 180) / Math.PI;
     let hypo = Math.hypot(0.2 * windowWidth, 0.2 * windowHeight);
-    let cos = (Math.acos((0.2 * windowWidth) / hypo) * 180) / Math.PI;
     let newHypo = Math.hypot(hypo, 0.2 * windowWidth);
     let newX = Math.sqrt(
       newHypo * newHypo + 0.2 * windowHeight * (0.2 * windowHeight)
