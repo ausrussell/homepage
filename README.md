@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-An experimental look at some of my work and art and periscope.
+#### An experimental look at some of my work and art and periscope.
 
 Open [https://russell-homepage.herokuapp.com/] to see it at play.
 
