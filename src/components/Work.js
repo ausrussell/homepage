@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../css/work.css";
 import { TweenLite, TimelineLite } from "gsap/TweenMax";
 import Card from "./Card";
-
 import Video from "./Video";
 import pdf from "../files/russell_ward_resume_2019.pdf";
 
@@ -143,7 +142,7 @@ class Work extends Component {
                   <button
                     onClick={e =>
                       this.handleClick(
-                        "https://schoolloop.wistia.com/medias/xu5t3jbhq1",
+                        "https://youtu.be/0Zirpe4nuwA",
                         "A CMS and website builder"
                       )
                     }
