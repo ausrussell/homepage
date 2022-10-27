@@ -11,7 +11,7 @@ class Periscope extends Component {
     url: null,
     playing: null,
     videoTitle: null,
-    time: null
+    time: null,
   };
 
   componentDidMount() {
@@ -52,13 +52,13 @@ class Periscope extends Component {
   setupAnimations() {
     this.animationBackgroundTimeline = new TimelineMax();
     this.animationBackgroundTimeline.to(this.background, 1, {
-      height: () => this.getNewHeight()
+      height: () => this.getNewHeight(),
     });
     this.animationBackgroundTimeline.pause();
     this.showFullTween = new TimelineMax();
     this.showFullTween.to(this.pipeVideoContainer, 1, {
       y: 100, //was 300
-      ease: Back.easeInOut
+      ease: Back.easeInOut,
     });
     this.showFullTween.pause();
 
@@ -66,14 +66,14 @@ class Periscope extends Component {
     this.dropPeriscopeTween
       .to(this.switchCircle, 1.5, {
         attr: { cy: 68 },
-        ease: Back.easeInOut
+        ease: Back.easeInOut,
       })
       .to(
         this.pipeVideoHolder,
         1,
         {
           className: "+=periscope-video-holder--full",
-          y: 50
+          y: 50,
         },
         "-=1"
       )
@@ -85,7 +85,7 @@ class Periscope extends Component {
           transformOrigin: "left 95px",
           transformStyle: "preserve-3d",
           ease: Back.easeInOut,
-          width: "40%"
+          width: "40%",
         },
         "-=1"
       )
@@ -93,7 +93,7 @@ class Periscope extends Component {
         this.periscopeCone,
         1,
         {
-          width: "600px"
+          width: "600px",
           // height: "200px"
         },
         "-=1"
@@ -103,7 +103,7 @@ class Periscope extends Component {
         1,
         {
           width: "600px",
-          height: "140px"
+          height: "140px",
         },
         "-=1"
       )
@@ -112,7 +112,7 @@ class Periscope extends Component {
         transformOrigin: "left 95px",
         transformStyle: "preserve-3d",
         ease: Back.easeInOut,
-        height: this.pipeVideoHolder.offsetWidth / 1.5
+        height: this.pipeVideoHolder.offsetWidth / 1.5,
       });
     this.dropPeriscopeTween.pause();
   }
@@ -135,7 +135,7 @@ class Periscope extends Component {
         (m < 10 ? "0" + m : m) +
         " : " +
         (s < 10 ? "0" + s : s) +
-        (h < 12 ? "am" : "pm")
+        (h < 12 ? "am" : "pm"),
     });
   }
 
@@ -165,10 +165,10 @@ class Periscope extends Component {
   render() {
     return (
       <div>
-        <div className="background" ref={div => (this.background = div)} />
+        <div className="background" ref={(div) => (this.background = div)} />
         <div
           className="pipe-video-container"
-          ref={div => (this.pipeVideoContainer = div)}
+          ref={(div) => (this.pipeVideoContainer = div)}
         >
           <div className="periscope-pipe">
             <svg
@@ -184,7 +184,7 @@ class Periscope extends Component {
               enableBackground="new 0 0 66.5 82.5"
               xmlSpace="preserve"
               className="periscope-switch"
-              onClick={e => this.handleSwitchClick()}
+              onClick={(e) => this.handleSwitchClick()}
             >
               <path
                 fill="#839594"
@@ -192,7 +192,7 @@ class Periscope extends Component {
             	c0,6.556-4.547,11.871-10.156,11.871C27.64,81.5,23.093,76.185,23.093,69.629z"
               />
               <circle
-                ref={div => (this.switchCircle = div)}
+                ref={(div) => (this.switchCircle = div)}
                 cx="33"
                 cy="18"
                 r="20"
@@ -202,7 +202,7 @@ class Periscope extends Component {
           </div>
           <div
             className="periscope-cone"
-            ref={div => (this.periscopeCone = div)}
+            ref={(div) => (this.periscopeCone = div)}
           >
             <svg viewBox="0 0 500 300" className="periscope-title">
               <path
@@ -220,29 +220,44 @@ class Periscope extends Component {
 
           <div
             className="periscope-rect"
-            ref={div => (this.periscopeRect = div)}
+            ref={(div) => (this.periscopeRect = div)}
           />
 
           <div
             className="periscope-video-holder"
-            ref={div => (this.pipeVideoHolder = div)}
+            ref={(div) => (this.pipeVideoHolder = div)}
           >
             <div
               className="periscope-background-card"
-              ref={div => (this.periscopeBackgroundCard = div)}
+              ref={(div) => (this.periscopeBackgroundCard = div)}
             />
 
-            <iframe
+            {/* <iframe
               title="Oakland periscope"
               className="periscope-iframe"
-              ref={f => (this.ifr = f)}
+              ref={(f) => (this.ifr = f)}
               type="text/html"
               width={this.state.ifrWidth}
               height={this.state.ifrHeight}
+              onLoad={(e) => this.iFrameLoadHandler()}
               src="//video.nest.com/embedded/live/HwulsRjzQE?autoplay=1"
-              onLoad={e => this.iFrameLoadHandler()}
-            />
+            /> */}
+            {/* <iframe allowfullscreen webkitallowfullscreen mozallowfullscreen src="https://video.nest.com/embedded/live/CVY6pSjyxC?autoplay=0" frameborder="0" width="720" height="576"></iframe> */}
 
+            <iframe
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen
+              src="https://video.nest.com/embedded/live/CVY6pSjyxC?autoplay=0"
+              frameborder="0"
+              title="Oakland periscope"
+              className="periscope-iframe"
+              ref={(f) => (this.ifr = f)}
+              type="text/html"
+              width={this.state.ifrWidth}
+              height={this.state.ifrHeight}
+              onLoad={(e) => this.iFrameLoadHandler()}
+            ></iframe>
             <svg viewBox="0 0 500 300" className="periscope-time">
               <path
                 id="time-curve"
@@ -262,7 +277,7 @@ class Periscope extends Component {
 
             <div
               className="periscope-video-card"
-              ref={div => (this.periscopeVideoCard = div)}
+              ref={(div) => (this.periscopeVideoCard = div)}
             />
           </div>
         </div>

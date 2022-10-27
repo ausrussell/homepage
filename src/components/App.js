@@ -34,15 +34,6 @@ class App extends Component {
     this.backgroundIndex = 0;
   }
 
-  // componentDidMount() {
-  //   if (this.state.imagesLoaded) {
-  //     debugger;
-  //   }
-  // }
-  // componentDidUpdate(prevProps) {
-  //   if (!prevProps.imagesLoaded && this.props.imagesLoaded) {
-  //   }
-  // }
   imagesLoadedHandler = () => {
     this.setState({ imagesLoaded: true });
     this.interval = setInterval(() => this.changeBackground(), 5000);
@@ -155,7 +146,7 @@ class App extends Component {
         {imagesLoaded ? (
           <div className="loaded-page">
             <div className="central-background" />
-            {// map through the backgrounds
+            {// loop through the backgrounds
             backgrounds.map((element, index) => (
               <div
                 key={element.id}
