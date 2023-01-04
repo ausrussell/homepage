@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "../css/desk.css";
 
-import { TimelineMax, TimelineLite } from "gsap/TweenMax";
+import { gsap } from "gsap";
 
 class Desk extends Component {
   state = {
     activePeriscope: null,
-    heightDelta: null
+    heightDelta: null,
   };
 
   componentDidMount() {
@@ -31,30 +31,30 @@ class Desk extends Component {
     return window.innerHeight / 5 + this.props.heightDelta; //this.deskBackground.offsetHeight
   };
   setupAnimations() {
-    this.showLinkAnimation = new TimelineMax();
+    this.showLinkAnimation = gsap.timeline();
     this.showLinkAnimation
-      .to(this.card, 1, { backgroundColor: "rgba(240,230,250)" })
-      .to(this.cardHolder, 1, { autoAlpha: 1 }, "-=1")
+      .to(this.card, { duration: 1, backgroundColor: "rgba(240,230,250)" })
+      .to(this.cardHolder, { duration: 1, autoAlpha: 1 }, "-=1")
       .to(
         this.header,
-        1,
-        {
-          color: "rgba(20,20,20)"
-        },
+
+        { duration: 1, color: "rgba(20,20,20)" },
         "-=1"
       )
-      .to(this.content, 1, { autoAlpha: 1 }, "-=1");
+      .to(this.content, { duration:1,autoAlpha: 1 }, "-=1");
     this.showLinkAnimation.pause();
-    this.growToLinkAnimation = new TimelineLite();
+    this.growToLinkAnimation = gsap.timeline();
     this.growToLinkAnimation
-      .to(this.deskBackground, 0.5, {
+      .to(this.deskBackground, {
+        duration:0.5,
         height: "20%",
-        "background-size": "100% 200%"
+        "background-size": "100% 200%",
       })
-      .to(this.deskBackground, 1, {
+      .to(this.deskBackground, {
+        duration:1,
         height: () => this.getNewHeight(),
         backgroundPosition: "32% 20%",
-        backgroundSize: "114% 200%"
+        backgroundSize: "114% 200%",
       });
     this.growToLinkAnimation.pause();
   }
@@ -71,23 +71,23 @@ class Desk extends Component {
       <div>
         <div
           className="background fade-in"
-          ref={div => (this.deskBackground = div)}
+          ref={(div) => (this.deskBackground = div)}
         >
           <a
             className="git-card"
             href="https://github.com/ausrussell/homepage"
-            ref={h => (this.cardHolder = h)}
+            ref={(h) => (this.cardHolder = h)}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <div className="ui card" ref={h => (this.card = h)}>
+            <div className="ui card" ref={(h) => (this.card = h)}>
               <div className="content">
-                <h2 className="card-1 ui header" ref={h => (this.header = h)}>
+                <h2 className="card-1 ui header" ref={(h) => (this.header = h)}>
                   Code
                 </h2>
                 <div
                   className="code-link-content"
-                  ref={h => (this.content = h)}
+                  ref={(h) => (this.content = h)}
                 >
                   on Github{" "}
                   <img
@@ -100,7 +100,10 @@ class Desk extends Component {
           </a>
         </div>
         <div className="source-code-holder">
-          <code className="source-code" ref={div => (this.sourceCode = div)} />
+          <code
+            className="source-code"
+            ref={(div) => (this.sourceCode = div)}
+          />
         </div>
       </div>
     );

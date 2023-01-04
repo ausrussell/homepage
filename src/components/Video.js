@@ -20,7 +20,7 @@ class Video extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    console.log("VIDEO this.props", prevProps, this.props);
+    // console.log("VIDEO this.props", prevProps, this.props);
 
     if (
       this.props.playing &&

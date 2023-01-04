@@ -5,7 +5,7 @@ import Periscope from "./Periscope";
 import Desk from "./Desk";
 import Work from "./Work";
 import Art from "./Art";
-import { TweenMax, TimelineLite } from "gsap/TweenMax";
+import { gsap } from "gsap";
 
 import videos from "../videos/dawn.mov";
 import { backgrounds } from "./image-data";
@@ -25,7 +25,7 @@ class App extends Component {
     videoTitle: null,
     heightDelta: null,
     imagesLoaded: false,
-    sideAngle: 0
+    sideAngle: 0,
   };
 
   constructor(props) {
@@ -47,10 +47,10 @@ class App extends Component {
   }
 
   setupAnimations() {
-    this.crossFadeBackgroundsToVideo = new TimelineLite();
+    this.crossFadeBackgroundsToVideo = gsap.timeline();
     this.crossFadeBackgroundsToVideo
-      .to(this.backgroundElements, 2, { autoAlpha: 0, scale: 1 })
-      .to(this.skyVideoBackground, 2, { autoAlpha: 1 }, "-=2");
+      .to(this.backgroundElements, { duration: 2, autoAlpha: 0, scale: 1 })
+      .to(this.skyVideoBackground, { duration: 2, autoAlpha: 1 }, "-=2");
     this.crossFadeBackgroundsToVideo.pause();
   }
   changeBackground() {
@@ -58,29 +58,32 @@ class App extends Component {
     if (this.backgroundIndex + 1 === this.backgroundElements.length) {
       this.backgroundIndex = 0;
     }
-    TweenMax.to(this.backgroundElements[prevIndex], 2, {
+    let tl = gsap.timeline();
+    tl.to(this.backgroundElements[prevIndex], {
+      duration: 2,
       autoAlpha: 0,
-      scale: 1
+      scale: 1,
     });
-    TweenMax.to(this.backgroundElements[this.backgroundIndex + 1], 1, {
+    tl.to(this.backgroundElements[this.backgroundIndex + 1], {
+      duration: 1,
       autoAlpha: 1,
-      scale: 1.2
+      scale: 1.2,
     });
     this.backgroundIndex++;
   }
 
-  handleMouseEnter = plane => {
+  handleMouseEnter = (plane) => {
     console.log("handleMouseEnter", plane);
     this.setState(
       {
         activePlane: plane,
-        activePeriscope: plane === this.topPlane
+        activePeriscope: plane === this.topPlane,
       },
       () => this.toggleRotatingBackgrounds()
     );
   };
 
-  handleMouseLeave = e => {
+  handleMouseLeave = () => {
     if (this.state.activePeriscope) {
       //allow watching of video and periscope if you mouse off browser
       return;
@@ -95,8 +98,9 @@ class App extends Component {
     if (this.state.activePlane && this.state.activePeriscope) {
       // active  periscope so show video and hidebg
       console.log(">>play sky vid");
-      TweenMax.to(this.skyVideoBackground, 2, { autoAlpha: 1 });
-      TweenMax.to(this.backgroundElements, 2, { autoAlpha: 0 });
+      let tl = gsap.timeline();
+      tl.to(this.skyVideoBackground, { duration: 2, autoAlpha: 1 });
+      tl.to(this.backgroundElements, { duration: 2, autoAlpha: 0 });
       // this.crossFadeBackgroundsToVideo.play();
       this.skyVideo.play();
       clearInterval(this.interval);
@@ -113,8 +117,9 @@ class App extends Component {
   }
 
   hideBackgrounds() {
-    TweenMax.to(this.skyVideoBackground, 2, { autoAlpha: 0 });
-    TweenMax.to(this.backgroundElements, 2, { autoAlpha: 0 });
+    let tl = gsap.timeline();
+    tl.to(this.skyVideoBackground, { duration: 2, autoAlpha: 0 });
+    tl.to(this.backgroundElements, { duration: 2, autoAlpha: 0 });
   }
 
   handleResize(e) {
@@ -146,22 +151,24 @@ class App extends Component {
         {imagesLoaded ? (
           <div className="loaded-page">
             <div className="central-background" />
-            {// loop through the backgrounds
-            backgrounds.map((element, index) => (
-              <div
-                key={element.id}
-                className={`page-background ${element.name}`}
-                ref={div => (this.backgroundElements[index] = div)}
-              />
-            ))}
+            {
+              // loop through the backgrounds
+              backgrounds.map((element, index) => (
+                <div
+                  key={element.id}
+                  className={`page-background ${element.name}`}
+                  ref={(div) => (this.backgroundElements[index] = div)}
+                />
+              ))
+            }
 
             <div
               className="sky-video-background"
-              ref={div => (this.skyVideoBackground = div)}
+              ref={(div) => (this.skyVideoBackground = div)}
             >
               <div className="sky-video-holder">
                 <video
-                  ref={div => (this.skyVideo = div)}
+                  ref={(div) => (this.skyVideo = div)}
                   width="100%"
                   height="100%"
                   loop
@@ -173,13 +180,13 @@ class App extends Component {
 
             <div className="page-holder">
               <div
-                onMouseLeave={e => this.handleMouseLeave(e)}
+                onMouseLeave={(e) => this.handleMouseLeave(e)}
                 onMouseEnter={() => this.handleMouseEnter(this.topPlane)}
               >
                 <EdgePlane
                   planeclass="planeTop"
                   activePlane={this.state.activePlane}
-                  ref={p => (this.topPlane = p)}
+                  ref={(p) => (this.topPlane = p)}
                 >
                   <Periscope
                     activePeriscope={this.state.activePlane === this.topPlane}
@@ -194,7 +201,7 @@ class App extends Component {
                 <EdgePlane
                   planeclass="planeBottom"
                   activePlane={this.state.activePlane}
-                  ref={p => (this.bottomPlane = p)}
+                  ref={(p) => (this.bottomPlane = p)}
                   recedeOverride={this.state.activePeriscope}
                 >
                   <Desk
@@ -211,7 +218,7 @@ class App extends Component {
                 <EdgePlane
                   planeclass="planeLeft"
                   activePlane={this.state.activePlane}
-                  ref={p => (this.leftPlane = p)}
+                  ref={(p) => (this.leftPlane = p)}
                   controlAnimation={true}
                 >
                   <Work
@@ -224,7 +231,7 @@ class App extends Component {
                 <EdgePlane
                   planeclass="planeRight"
                   activePlane={this.state.activePlane}
-                  ref={p => (this.rightPlane = p)}
+                  ref={(p) => (this.rightPlane = p)}
                   controlAnimation={true}
                 >
                   <Art activeArt={this.state.activePlane === this.rightPlane} />

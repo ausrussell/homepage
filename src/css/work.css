@@ -1,5 +1,7 @@
 .work-wrapper {
   height: 100%;
+  /* height: calc(100% + 200px);
+  margin-top: 50px; */
 }
 
 .work-container {
@@ -13,6 +15,8 @@
   align-items: center;
   justify-content: center;
   flex: 1 0 0;
+  height: calc(100% + 200px);
+
 }
 
 .work-col2 {
@@ -25,18 +29,9 @@
   margin-top: 1em;
 }
 
-.work-col2 .card {
-  /* width: auto; */
-}
 .play-holder {
   float: right;
   margin-top: 5px;
-}
-
-.card-1 {
-  /* transform-style: "preserve-3d";
-  transform: rotate(45deg);
-  opacity: 0.7; */
 }
 
 .school-iframe,

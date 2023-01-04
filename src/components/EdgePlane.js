@@ -1,5 +1,5 @@
 import React from "react";
-import { TweenLite, TimelineLite } from "gsap/TweenMax";
+import {gsap } from "gsap";
 
 class EdgePlane extends React.Component {
   constructor(props) {
@@ -49,7 +49,9 @@ class EdgePlane extends React.Component {
     // debugger;
     console.log("recede", this.props.planeclass, "and all but", notThis);
     if (this.props.planeclass !== notThis) {
-      this.recedeTimeline = TweenLite.to(this.plane, 1, {
+      let tl = gsap.timeline();
+      this.recedeTimeline = tl.to(this.plane, {
+        duration:1,
         className: "+=receded"
       });
       if (!this.state.isReceded) this.setState({ isReceded: true });
@@ -61,7 +63,9 @@ class EdgePlane extends React.Component {
     // debugger;
     console.log("recede", this.props.planeclass, "and all but", notThis);
     if (this.props.planeclass !== notThis) {
-      this.recedeTimeline = TweenLite.to(this.plane, 1, {
+      let tl = gsap.timeline();
+      this.recedeTimeline = tl.to(this.plane, {
+        duration:1,
         className: "-=receded"
       });
     }
@@ -78,8 +82,9 @@ class EdgePlane extends React.Component {
       this.setState({ isAnimating: true });
       let call = this.handleReverseComplete;
 
-      this.animationTimeline = new TimelineLite();
-      this.animationTimeline.to(this.plane, 3, {
+      this.animationTimeline = gsap.timeline()
+      this.animationTimeline.to(this.plane, {
+        duration:3,
         width: "80%",
         y: 0
       });
@@ -93,9 +98,8 @@ class EdgePlane extends React.Component {
     console.log("animateLeft");
     if (!this.state.isAnimating) {
       this.setState({ isAnimating: true });
-      // this.animationTimeline = new TimelineLite();
       if (!this.animationTimeline) {
-        this.animationTimeline = new TimelineLite();
+        this.animationTimeline =  gsap.timeline();
       } else {
         this.animationTimeline.stop();
       }

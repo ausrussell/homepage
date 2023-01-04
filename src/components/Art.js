@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ArtPanel from "./ArtPanel";
 
-import { TweenMax } from "gsap/TweenMax";
+import { gsap } from "gsap";
 import "../css/art.css";
 import "../css/app.css";
 
@@ -12,71 +12,71 @@ const panelData = [
     classCSS: "panel1",
     image: "waterlandscape", // needs a .jpg suffix in images
     left: 0.15, // * 100 if you need percentage
-    top: 0.2
+    top: 0.2,
   },
   {
     id: 1,
     classCSS: "panel2",
     image: "self",
-    left: 0.15
+    left: 0.15,
   },
   {
     id: 2,
     classCSS: "panel3",
     image: "mum_breakfast",
-    left: 0.4
+    left: 0.4,
   },
   {
     id: 3,
     classCSS: "panel4",
     flap: "flap", //this holds the ref to the flap
     image: "lighthouse",
-    left: 0.4
+    left: 0.4,
   },
   {
     id: 4,
     classCSS: "panel5",
     flap: "flap", //this holds the ref to the flap
     image: "jacqueline",
-    left: 0.4
+    left: 0.4,
   },
   {
     id: 5,
     classCSS: "panel6",
     flap: "flap", //this holds the ref to the flap
     image: "ferry",
-    left: 0.4
+    left: 0.4,
   },
   {
     id: 6,
     classCSS: "panel7",
-    image: "gallery"
+    image: "gallery",
   },
   {
     id: 7,
     classCSS: "panel8",
-    image: "pool"
+    image: "pool",
   },
   {
     id: 8,
     classCSS: "panel9",
-    image: "piano"
+    image: "piano",
   },
   {
     id: 9,
     classCSS: "panel10",
-    image: "couch"
+    image: "couch",
   },
   {
     id: 10,
     classCSS: "panel11",
-    image: "russianriver"
+    image: "russianriver",
   },
   {
     id: 11,
     classCSS: "panel12",
-    image: "merrit"
-  }
+    image: "merrit",
+  },
 ];
 
 class Art extends Component {
@@ -84,7 +84,7 @@ class Art extends Component {
     super(props);
     this.state = {
       activeArtPanel: null,
-      holderActive: false
+      holderActive: false,
     };
     this.panels = [];
     this.eachPanelHolderRef = [];
@@ -97,35 +97,39 @@ class Art extends Component {
       height: 0,
       holderDimensions: {
         width: -1,
-        height: -1
+        height: -1,
       },
-      artActive: null
+      artActive: null,
     };
     this.panelsHolder = React.createRef();
   }
 
   componentDidMount() {
-    // return;
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions.bind(this));
-    TweenMax.to(this.artTitle, 0, {
+    let tl = gsap.timeline();
+    tl.to(this.artTitle, {
       rotationY: -45,
-      autoAlpha: 0.7
+      autoAlpha: 0.7,
     });
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.activeArt && !prevProps.activeArt) {
       this.setState({ holderActive: true });
-      TweenMax.to(this.artTitle, 3, {
+      let tl = gsap.timeline();
+      tl.to(this.artTitle, {
+        duration:3,
         rotationY: 0,
-        autoAlpha: 1
+        autoAlpha: 1,
       });
     } else if (!this.props.activeArt && prevProps.activeArt) {
       this.setState({ holderActive: false });
-      TweenMax.to(this.artTitle, 3, {
+      let tl = gsap.timeline();
+      tl.to(this.artTitle, {
+        duration:3,
         rotationY: -45,
-        autoAlpha: 0.7
+        autoAlpha: 0.7,
       });
     }
   }
@@ -153,34 +157,39 @@ class Art extends Component {
     return "-" + newLeft + "px -" + parent.offsetTop + "px";
   }
 
-  handleArtClick = artID => {
+  handleArtClick = (artID) => {
     this.setState({ artActive: artID });
   };
 
   render() {
     return (
-      <div className="panel-holder" ref={div => (this.panelsHolder = div)}>
-        <h2 className="art-header ui header" ref={div => (this.artTitle = div)}>
+      <div className="panel-holder" ref={(div) => (this.panelsHolder = div)}>
+        <h2
+          className="art-header ui header"
+          ref={(div) => (this.artTitle = div)}
+        >
           Art
         </h2>
         <div
           className="full-art-holder"
-          ref={div => (this.fullArtHolder = div)}
+          ref={(div) => (this.fullArtHolder = div)}
         />
 
-        {// map through the panels
-        panelData.map(({ id, classCSS, image }) => (
-          <ArtPanel
-            key={id}
-            id={id}
-            classCSS={classCSS}
-            image={image}
-            holderActive={this.state.holderActive}
-            hanldeArtClick={this.handleArtClick}
-            artActive={this.state.artActive}
-            fullArtsHolder={this.fullArtHolder}
-          />
-        ))}
+        {
+          // map through the panels
+          panelData.map(({ id, classCSS, image }) => (
+            <ArtPanel
+              key={id}
+              id={id}
+              classCSS={classCSS}
+              image={image}
+              holderActive={this.state.holderActive}
+              hanldeArtClick={this.handleArtClick}
+              artActive={this.state.artActive}
+              fullArtsHolder={this.fullArtHolder}
+            />
+          ))
+        }
       </div>
     );
   }

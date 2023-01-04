@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TweenMax, TimelineMax, Back } from "gsap/TweenMax";
+import {gsap, Back } from "gsap";
 import "../css/periscope.css";
 
 class Periscope extends Component {
@@ -44,34 +44,41 @@ class Periscope extends Component {
   }
 
   initAnimationSetup() {
-    TweenMax.set(this.pipeVideoContainer, { perspective: 800 });
-    TweenMax.set(this.periscopeVideoCard, { autoAlpha: 0 });
-    TweenMax.set(this.periscopeBackgroundCard, { autoAlpha: 0 });
+    let tl1 = gsap.timeline();
+    tl1.set(this.pipeVideoContainer, { perspective: 800 });
+    let tl2 = gsap.timeline();
+    tl2.set(this.periscopeVideoCard, { autoAlpha: 0 });
+    let tl3 = gsap.timeline();
+    tl3.set(this.periscopeBackgroundCard, { autoAlpha: 0 });
   }
 
   setupAnimations() {
-    this.animationBackgroundTimeline = new TimelineMax();
-    this.animationBackgroundTimeline.to(this.background, 1, {
+    this.animationBackgroundTimeline = gsap.timeline();
+    this.animationBackgroundTimeline.to(this.background, {
+      duration: 1,
       height: () => this.getNewHeight(),
     });
     this.animationBackgroundTimeline.pause();
-    this.showFullTween = new TimelineMax();
-    this.showFullTween.to(this.pipeVideoContainer, 1, {
+    this.showFullTween = gsap.timeline();
+    this.showFullTween.to(this.pipeVideoContainer, {
+      duration: 1,
       y: 100, //was 300
       ease: Back.easeInOut,
     });
     this.showFullTween.pause();
 
-    this.dropPeriscopeTween = new TimelineMax();
+    this.dropPeriscopeTween = gsap.timeline();
     this.dropPeriscopeTween
-      .to(this.switchCircle, 1.5, {
+      .to(this.switchCircle, {
+        duration: 1.5,
         attr: { cy: 68 },
         ease: Back.easeInOut,
       })
       .to(
         this.pipeVideoHolder,
-        1,
+
         {
+          duration: 1,
           className: "+=periscope-video-holder--full",
           y: 50,
         },
@@ -79,8 +86,8 @@ class Periscope extends Component {
       )
       .to(
         this.pipeVideoHolder,
-        1,
         {
+          duration: 1,
           rotationX: -0,
           transformOrigin: "left 95px",
           transformStyle: "preserve-3d",
@@ -91,8 +98,8 @@ class Periscope extends Component {
       )
       .to(
         this.periscopeCone,
-        1,
         {
+          duration: 1,
           width: "600px",
           // height: "200px"
         },
@@ -100,14 +107,12 @@ class Periscope extends Component {
       )
       .to(
         this.periscopeRect,
-        1,
-        {
-          width: "600px",
-          height: "140px",
-        },
+
+        { duration: 1, width: "600px", height: "140px" },
         "-=1"
       )
-      .to(this.pipeVideoHolder, 1, {
+      .to(this.pipeVideoHolder, {
+        duration:1,
         rotationX: -360,
         transformOrigin: "left 95px",
         transformStyle: "preserve-3d",
@@ -232,24 +237,10 @@ class Periscope extends Component {
               ref={(div) => (this.periscopeBackgroundCard = div)}
             />
 
-            {/* <iframe
-              title="Oakland periscope"
-              className="periscope-iframe"
-              ref={(f) => (this.ifr = f)}
-              type="text/html"
-              width={this.state.ifrWidth}
-              height={this.state.ifrHeight}
-              onLoad={(e) => this.iFrameLoadHandler()}
-              src="//video.nest.com/embedded/live/HwulsRjzQE?autoplay=1"
-            /> */}
-            {/* <iframe allowfullscreen webkitallowfullscreen mozallowfullscreen src="https://video.nest.com/embedded/live/CVY6pSjyxC?autoplay=0" frameborder="0" width="720" height="576"></iframe> */}
-
             <iframe
-              allowfullscreen
-              webkitallowfullscreen
-              mozallowfullscreen
+              allowFullScreen
               src="https://video.nest.com/embedded/live/CVY6pSjyxC?autoplay=0"
-              frameborder="0"
+              frameBorder="0"
               title="Oakland periscope"
               className="periscope-iframe"
               ref={(f) => (this.ifr = f)}
